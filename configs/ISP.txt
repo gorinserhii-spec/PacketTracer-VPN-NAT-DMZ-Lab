@@ -1,0 +1,12 @@
+ Interface Configuration:
+
+interface GigabitEthernet0/1
+ ip address 209.165.200.254 255.255.255.0
+ ipv6 address 2001:DB8:1:1::2/64
+ ipv6 ospf 1 area 0
+!
+interface GigabitEthernet0/2
+ ip address 8.8.8.1 255.255.255.0
+ ipv6 address 2001:DB8:8:8::1/64
+ ipv6 ospf 1 area 0
+  

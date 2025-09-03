@@ -1,0 +1,86 @@
+ DHCP Server Configuration:
+
+ip dhcp excluded-address 192.168.10.1 192.168.10.10
+ip dhcp excluded-address 192.168.20.1 192.168.20.10
+ip dhcp excluded-address 192.168.99.1 192.168.99.9
+!
+ip dhcp pool VLAN20
+ network 192.168.20.0 255.255.255.0
+ default-router 192.168.20.1
+ dns-server 8.8.8.8
+ip dhcp pool VLAN10
+ network 192.168.10.0 255.255.255.0
+ default-router 192.168.10.1
+ dns-server 8.8.8.8
+ip dhcp pool DMZ_SERVERS
+ network 192.168.99.0 255.255.255.0
+ default-router 192.168.99.1
+ dns-server 8.8.8.8
+ 
+============================================================================= 
+ 
+ Interface and VLAN Configuration:
+ 
+ interface FastEthernet0/1
+ switchport access vlan 99
+ switchport mode access
+ switchport port-security
+ switchport port-security violation restrict
+ switchport port-security mac-address sticky
+!
+interface GigabitEthernet0/0
+ no ip address
+!
+interface GigabitEthernet0/0.10
+ encapsulation dot1Q 10
+ ip address 192.168.10.1 255.255.255.0
+ ip nat inside
+ ipv6 address 2001:DB8:10:10::1/64
+ ipv6 enable
+ ipv6 nd other-config-flag
+ ipv6 dhcp server DHCPV6_VLAN10
+!
+interface GigabitEthernet0/0.20
+ encapsulation dot1Q 20
+ ip address 192.168.20.1 255.255.255.0
+ ip nat inside
+ ipv6 address 2001:DB8:20:20::1/64
+ ipv6 enable
+ ipv6 nd other-config-flag
+ ipv6 dhcp server DHCPV6_VLAN20
+!
+interface GigabitEthernet0/0.99
+ encapsulation dot1Q 99
+ ip address 192.168.99.1 255.255.255.0
+ ip nat inside
+ ipv6 address 2001:DB8:99:99::1/64
+ ipv6 enable
+ ipv6 nd other-config-flag
+ ipv6 dhcp server DHCPV6_DMZ
+!
+interface GigabitEthernet0/1
+ ip address 10.0.0.1 255.255.255.252
+ ip nat inside
+ ipv6 address 2001:DB8:FF::1/64
+ ipv6 enable
+ ipv6 ospf 1 area 0
+ crypto map MY_CRYPTO_MAP
+!
+interface GigabitEthernet0/2
+ ip address 209.165.200.1 255.255.255.0
+ ip nat outside
+ ipv6 address 2001:DB8:1:1::1/64
+ ipv6 enable
+ ipv6 ospf 1 area 0
+ 
+ ============================================================================= 
+ 
+ NAT (PAT and Static) Configuration:
+ 
+ ip nat inside source list NAT_INSIDE interface GigabitEthernet0/2 overload
+ip nat inside source static tcp 192.168.99.10 80 209.165.200.10 80
+ip nat inside source static tcp 192.168.99.10 443 209.165.200.10 443
+ip access-list extended NAT_INSIDE
+ permit ip 192.168.10.0 0.0.0.255 any
+ permit ip 192.168.20.0 0.0.0.255 any
+ permit ip 192.168.99.0 0.0.0.255 any

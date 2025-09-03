@@ -1,0 +1,29 @@
+ DHCP and IPv6 Configuration:
+
+ip dhcp pool VLAN10_BRANCH
+ network 192.168.30.0 255.255.255.0
+ default-router 192.168.30.1
+ dns-server 8.8.8.8
+!
+ipv6 dhcp pool DHCPV6_VLAN30
+ dns-server 2001:DB8:8:8::8
+ domain-name branch.local
+  
+============================================================================= 
+ 
+ VPN and IPSec Configuration:
+ 
+crypto isakmp policy 10
+ encr 3des
+ authentication pre-share
+!
+crypto isakmp key CISCO2911 address 10.0.0.1
+!
+crypto ipsec transform-set MY_TRANSFORM_SET esp-3des esp-md5-hmac
+ mode tunnel
+!
+crypto map MY_CRYPTO_MAP 10 ipsec-isakmp
+ set peer 10.0.0.1
+ set transform-set MY_TRANSFORM_SET
+ match address VPN_TRAFFIC 
+ 

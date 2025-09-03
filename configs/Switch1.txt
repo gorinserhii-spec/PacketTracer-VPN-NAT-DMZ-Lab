@@ -1,0 +1,28 @@
+ VLAN Configuration:
+
+vlan 10
+ name VLAN10
+!
+vlan 20
+ name VLAN20
+!
+vlan 99
+ name DMZ
+ 
+=============================================================================
+
+ Port Security Configuration:
+
+interface FastEthernet0/1
+ switchport access vlan 10
+ switchport mode access
+ switchport port-security
+ switchport port-security violation restrict
+ switchport port-security mac-address sticky 0003.E416.E12B
+!
+interface FastEthernet0/2
+ switchport access vlan 20
+ switchport mode access
+ switchport port-security
+ switchport port-security violation restrict
+ switchport port-security mac-address sticky 00D0.BA7B.A6A1

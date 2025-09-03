@@ -1,0 +1,12 @@
+ VLAN Configuration:
+
+vlan 30
+ name VLAN30
+!
+interface FastEthernet0/1
+ switchport access vlan 30
+ switchport mode access
+ switchport port-security
+ switchport port-security violation restrict
+ switchport port-security mac-address sticky 0001.64C7.C6AE
+   
