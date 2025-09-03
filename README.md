@@ -131,7 +131,7 @@ to simulate a real security policy.
 ## 📷 Screenshots
 -----------
 - Network Diagram: diagram.png
-- Ping Tests: (Screenshots of ping tests can be added here)
+- PC3 Ping Tests: screenshots/ping_test_pc3_to_dns_server.png
 
 ## 🚀 How to Run
 ----------
