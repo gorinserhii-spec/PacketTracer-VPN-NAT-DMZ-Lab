@@ -135,7 +135,7 @@ to simulate a real security policy.
 
 ## 🚀 How to Run
 ----------
-1. Open corporate_network_project.pkt in Cisco Packet Tracer.
+1. Open vpn_nat_dmz_lab.pkt in Cisco Packet Tracer.
 2. Start the simulation and wait for all devices to boot up.
 3. Verify network connectivity by pinging devices across different VLANs and to the internet.
 
