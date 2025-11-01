@@ -146,3 +146,7 @@ and an IPsec-protected VPN, it demonstrates advanced skills in network configura
 =================================================
 # Author: Serhii Gorin 
 # Date: 03.09.2025
+
+---
+## ⚠️ Disclaimer
+This is an educational project for portfolio purposes. Cisco Packet Tracer and all associated logos are the property of Cisco Systems, Inc.
